@@ -11,9 +11,12 @@ import appointmentRoutes from "./routes/appointmentRoutes.js"
 dotenv.config();
 const PORT = process.env.PORT || 5000
 const app = express()
-
+// console.log(process.env.FrontendURL)
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin:process.env.FrontendURL,
+    credentials:true
+}))
 app.use(helmet())
 app.use(morgan('dev'))
 
