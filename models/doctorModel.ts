@@ -14,9 +14,9 @@ interface Doctor {
 
 const doctorModel = {
     createDoc : async (doctor : Doctor)=>{
-        const { user_id, specialty, experience, photo_url, location, gender, diseases } = doctor;
+        const { user_id, specialty, experience, photo_url, location, gender, diseases , rating } = doctor;
 
-        const response = await db.query("insert into doctors (user_id, specialty, experience, photo_url, location, gender, diseases) values ($1, $2, $3, $4, $5, $6, $7) returning *" , [user_id, specialty, experience, photo_url, location, gender, diseases])
+        const response = await db.query("insert into doctors (user_id, specialty, experience, photo_url, location, gender, diseases, rating) values ($1, $2, $3, $4, $5, $6, $7, $8) returning *" , [user_id, specialty, experience, photo_url, location, gender, diseases, rating])
 
         return response.rows[0]
     },

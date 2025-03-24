@@ -32,7 +32,7 @@ const authController = {
             const response  = await authService.login(email , password)
 
             if(response.success){
-                return res.status(200).json({username : response.data.user.name , token : response.data.token})
+                return res.status(200).json({id:response.data.user.id,username : response.data.user.name , token : response.data.token})
             }
             res.status(500).json({message:"logged in successfully",data : response.data})
         } catch (error:any) {
