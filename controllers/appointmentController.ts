@@ -17,6 +17,19 @@ const appointmentController = {
         }
     },
 
+    getAllApp : async(req:Request , res:Response)=>{
+        try {
+            const response = await appointmentService.getAllApp()
+
+            if(response.success){
+                return res.status(200).json(response.data)
+            }else throw new Error("error : appController > get all app")
+        } catch (error:any) {
+            console.log("error : appController > get all app" , error.message)
+            res.status(500).json({message : error.message})
+        }
+    },
+
     getAppByPatient : async(req:Request , res:Response)=>{
         try {
             const response = await appointmentService.getAppByPatient(Number(req.params.patient_id))

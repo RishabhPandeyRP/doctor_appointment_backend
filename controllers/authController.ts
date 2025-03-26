@@ -9,6 +9,7 @@ interface AuthResponse<T> {
     name: string;
     email: string;
     role: string;
+    id: number
   }
 
 const authController = {
@@ -17,7 +18,7 @@ const authController = {
             const {name , email , password, role} = req.body
             const response: AuthResponse<UserData | string> = await authService.register(name , email , password , role || 'patient')
             if(response.success){
-                return res.status(200).json({message:"signed up successfully",username:(response.data as UserData).name})
+                return res.status(200).json({message:"signed up successfully",username:(response.data as UserData).name ,  id:(response.data as UserData).id} )
             }
             res.status(200).json({message : response.data})
         } catch (error:any) {

@@ -13,6 +13,17 @@ const appointmentService = {
         }
     },
 
+    getAllApp : async()=>{
+        try {
+            const response = await appointmentModel.getAllApp()
+
+            return {success:true , data:response}
+        } catch (error:any) {
+            console.log("error: app service > get all app" , error.message)
+            return {success:false , data:error.message}
+        }
+    },
+
     getAppByPatient : async(patient_id:number)=>{
         try {
             const response = await appointmentModel.getAppByPatient(patient_id)

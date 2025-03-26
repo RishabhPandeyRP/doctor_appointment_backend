@@ -10,6 +10,8 @@ router.post("/book" ,authMiddleware.isAuthenticated , appointmentController.book
 //@ts-ignore
 router.get("/patient/:patient_id" , appointmentController.getAppByPatient)
 //@ts-ignore
+router.get("/getAll" , appointmentController.getAllApp)
+//@ts-ignore
 router.get("/doctor/:doctor_id" , appointmentController.getAppByDoc)
 //@ts-ignore
 router.put("/:id/status" ,authMiddleware.isAuthenticated , adminMiddleware, appointmentController.updateApp)
