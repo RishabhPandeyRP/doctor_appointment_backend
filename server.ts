@@ -8,6 +8,7 @@ import docRoutes from "./routes/docRoutes.js"
 import slotRoutes from "./routes/slotRoutes.js"
 import appointmentRoutes from "./routes/appointmentRoutes.js"
 import imageUploadRoutes from "./routes/imageUploadRoute.js"
+import mailRoutes from "./routes/mailRoute.js"
 
 dotenv.config();
 const PORT = process.env.PORT || 5000
@@ -26,6 +27,7 @@ app.use("/doctors" , docRoutes)
 app.use("/slots" , slotRoutes)
 app.use("/appointment" , appointmentRoutes)
 app.use("/api" , imageUploadRoutes)
+app.use("/api" , mailRoutes)
 
 
 app.listen(PORT , ()=>{

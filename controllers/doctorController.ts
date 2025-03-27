@@ -57,7 +57,35 @@ const doctorController = {
         }
     },
 
+    getDocPaginated : async(req:Request , res:Response)=>{
+        try {
+            const {page = "1" , limit = "6" , search , rating ,experience , gender} = req.query
 
+            const parsedPage = parseInt(page as string)
+            const parsedLimit = parseInt(limit as string)
+
+            // if(!Array.isArray(rating) || !Array.isArray(experience) || !Array.isArray(gender)){
+            //     return res.status(500).json({message : "wrong inputs, not arrays"})
+            // }
+
+            const parsedRating : string[] = Array.isArray(rating) ? rating.map(item => item as string).filter(item => item.trim() !== "")  : []
+
+            const parsedExp : string[] = Array.isArray(experience) ? experience.map(item => item as string).filter(item => item.trim() !== "") : []
+
+            const parsedGender : string[] = Array.isArray(gender) ? gender.map(item => item as string).filter(item => item.trim() !== "") : []
+
+            const response = await doctorService.getDocPaginated(parsedPage , parsedLimit , search as string , parsedRating , parsedExp , parsedGender)
+
+            if(response.success){
+                return res.status(200).json({docname:response.data})
+            }
+
+            res.status(500).json({message:"some error occured while getting doctors"})
+        } catch (error:any) {
+            console.log("error:doc controller > getdoc paginated")
+            res.status(500).json({message : error.message})
+        }
+    }
 
 
 }

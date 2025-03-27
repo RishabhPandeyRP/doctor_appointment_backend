@@ -10,6 +10,24 @@ const userModel = {
     findUserByEmail : async (email:string)=>{
         const response = await db.query("select * from users where email=$1" , [email])
         return response.rows[0]
+    },
+
+    updateResetToken : async(email:string , token:string , expiry_time:Date)=>{
+        const response = await db.query("update users set reset_password_token = $1 , reset_password_expires = $2 where email = $3 returning *" ,[token,expiry_time,email])
+
+        return response.rows[0]
+    },
+
+    isValidToken : async(email:string , token:string)=>{
+        const response = await db.query("select reset_password_expires from users users where email = $1 and reset_password_token = $2" ,[email,token])
+
+        return response
+    },
+
+    updateResetPassword : async(email:string , encryptPass:string)=>{
+        const response = await db.query("update users set password = $2 , reset_password_token = null ,reset_password_expires = null where email = $1 ",[email,encryptPass])
+
+        return response.rows[0]
     }
 }
 

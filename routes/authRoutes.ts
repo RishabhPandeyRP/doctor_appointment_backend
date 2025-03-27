@@ -10,5 +10,8 @@ router.post("/register" , authController.register)
 router.post("/login" , authController.login)
 //@ts-ignore
 router.post("/login-admin" , authController.loginAsAdmin)
-
+//@ts-ignore
+router.post("/request-password-reset" , authController.requestPasswordReset)
+//@ts-ignore
+router.post("/reset-password" , authController.resetPassword)
 export default router

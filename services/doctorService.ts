@@ -40,6 +40,16 @@ const doctorService = {
             return {success:false , data:error.message}
         }
     },
+
+    getDocPaginated : async(page:number , limit:number = 6 , search?:string , rating?:string[] , experience?:string[] , gender?:string[])=>{
+        try {
+            const doctors = await doctorModel.getDocPaginated(page, limit , search , rating , experience , gender)
+            return {success:true , data:doctors}
+        } catch (error:any) {
+            console.log("error : getDocPaginated > services")
+            return {success:false , data:error.message}
+        }
+    }
 }
 
 export default doctorService

@@ -6,6 +6,8 @@ import adminMiddleware from "../middlewares/adminMiddleware.js";
 const router = express.Router();
 
 //@ts-ignore
+router.get("/page-doctors" , doctorController.getDocPaginated)
+//@ts-ignore
 router.post("/register" , authMiddleware.isAuthenticated , adminMiddleware, doctorController.createDoc)
 //@ts-ignore
 router.get("/" ,authMiddleware.isAuthenticated, doctorController.getAllDoc)
@@ -13,5 +15,6 @@ router.get("/" ,authMiddleware.isAuthenticated, doctorController.getAllDoc)
 router.get("/:id" ,authMiddleware.isAuthenticated, doctorController.getDocById)
 //@ts-ignore
 router.put("/:id" ,authMiddleware.isAuthenticated,adminMiddleware, doctorController.updateDoc)
+
 
 export default router
