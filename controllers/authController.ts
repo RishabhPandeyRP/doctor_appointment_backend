@@ -110,6 +110,21 @@ const authController = {
             console.log("error: authcontroller > resetpassword")
             res.status(500).json({message:error.message})
         }
+    },
+
+    verifyToken : async (req:Request , res:Response)=>{
+        try {
+            const {token} = req.params
+            const response = await authService.verifyToken(token)
+
+            if(response.success){
+                return res.status(200).json({message:"token verified" , data:response.data})
+            }
+            res.status(500).json({message:"some error occurred"})
+        } catch (error:any) {
+            console.log("error:authcontroller > verify token")
+            res.status(500).json({message : error.message})
+        }
     }
 }
 

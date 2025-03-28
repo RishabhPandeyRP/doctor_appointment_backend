@@ -130,6 +130,17 @@ const authService = {
             console.log("error: authservice > resetPassword")
             return {success:false , data:error.message}
         }
+    },
+
+    verifyToken : async(token:string)=>{
+        try {
+            const decoded = jwt.verify(token , process.env.JWT_SECRET || "jwt-secret")
+
+            return {success:true , data:decoded}
+        } catch (error:any) {
+            console.log("error : verifyToken > service")
+            return {success:false , data:error.message}
+        }
     }
 }
 

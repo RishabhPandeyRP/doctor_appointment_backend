@@ -23,12 +23,12 @@ const appointmentModel = {
             throw new Error("Slot not available")
         }
 
-        const conflictForDoc = await db.query("select * from appointments where doctor_id = $1 and appointment_date = $2 and (start_time <= $3 and end_time > $3 ) or (start_time < $4 and end_time >= $4 )", [doctor_id, appointment_date, start_time, end_time])
+        const conflictForDoc = await db.query("select * from appointments where doctor_id = $1 and appointment_date = $2 and ((start_time <= $3 and end_time > $3 ) or (start_time < $4 and end_time >= $4 ))", [doctor_id, appointment_date, start_time, end_time])
         if (conflictForDoc.rows.length > 0) {
             throw new Error("Doctor is already booked")
         }
 
-        const conflictForPatient = await db.query("select * from appointments where patient_id = $1 and appointment_date = $2 and (start_time <= $3 and end_time > $3 ) or (start_time < $4 and end_time >= $4 )", [patient_id, appointment_date, start_time, end_time])
+        const conflictForPatient = await db.query("select * from appointments where patient_id = $1 and appointment_date = $2 and ((start_time <= $3 and end_time > $3 ) or (start_time < $4 and end_time >= $4 ))", [patient_id, appointment_date, start_time, end_time])
         if (conflictForPatient.rows.length > 0) {
             throw new Error("Patient is already booked")
         }

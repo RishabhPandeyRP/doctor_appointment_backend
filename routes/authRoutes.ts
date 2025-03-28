@@ -14,4 +14,6 @@ router.post("/login-admin" , authController.loginAsAdmin)
 router.post("/request-password-reset" , authController.requestPasswordReset)
 //@ts-ignore
 router.post("/reset-password" , authController.resetPassword)
+//@ts-ignore
+router.get("/verifyToken/:token" , authController.verifyToken)
 export default router

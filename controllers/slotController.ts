@@ -18,6 +18,7 @@ const slotController = {
 
     getSlotByDocId: async(req : Request,res : Response)=>{
         try {
+            console.log("date from the backend is : " , req.params.date)
             const response = await slotService.getSlotByDocId(Number(req.params.doctor_id) , (req.params.date))
 
             if(response.success){

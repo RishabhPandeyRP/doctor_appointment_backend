@@ -34,17 +34,29 @@ const slotService = {
 
     getSlotByDocId: async (doctor_id: number, date: string) => {
         try {
+            console.log("from service date is : ", date)
             const response = await slotModel.getSlotByDoc(doctor_id, date)
-            return { success: true, data: response }
+
+            const updatedResponse = response.map((slot) => {
+                let dateStr = String(slot.date)
+                const date = new Date(dateStr)
+                let fornmatted = new Date(date.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }))
+                // console.log(fornmatted.toISOString())
+                let dateString = `${fornmatted.getFullYear()}-${String(fornmatted.getMonth() + 1).padStart(2, '0')}-${String(fornmatted.getDate()).padStart(2, '0')}T00:00:00.000Z`
+
+                return { ...slot, newdate: dateString }; // Replace UTC date with full IST Date object
+            });
+
+            return { success: true, data: updatedResponse }
         } catch (error: any) {
             console.log("error : slotservice > getslotbydoc", error.message)
             return { success: false, data: error.message }
         }
     },
 
-    deleteSlot: async (slot_id: number , doctor_id:number) => {
+    deleteSlot: async (slot_id: number, doctor_id: number) => {
         try {
-            const response = await slotModel.deleteSlots(slot_id , doctor_id)
+            const response = await slotModel.deleteSlots(slot_id, doctor_id)
             return { success: true, data: "slot deleted" }
         } catch (error: any) {
             console.log("error : slotservice > deleteslot", error.message)

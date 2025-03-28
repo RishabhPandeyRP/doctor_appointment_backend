@@ -29,6 +29,7 @@ const slotModel = {
     },
 
     getSlotByDoc: async(doctor_id:number , date:string)=>{
+        console.log("date from model is " , date)
         const response = await db.query("select * from doctor_slots where doctor_id=$1 and date=$2 order by start_time" , [doctor_id,date])
 
         return response.rows
