@@ -4,7 +4,15 @@ import doctorService from "../services/doctorService.js"
 const doctorController = {
     createDoc: async(req:Request , res:Response)=>{
         try {
+            const {email} = req.body
+            const domain = email.split("@")[1].split(".")[0]
+            
+            if (domain !== "gmail" || domain !== "tothenew"){
+                return res.status(500).json({message : "Only gmail and tothenew domains are applicable"})
+            }
+            
             const response = await doctorService.createDoc(req.body)
+            
             if(response.success){
                 return res.status(200).json({docname:response.data})
             }

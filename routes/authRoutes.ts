@@ -1,6 +1,8 @@
 
 import express from "express"
 import authController from "../controllers/authController.js";
+import passport from "../config/passport.js"
+import jwt from "jsonwebtoken"
 
 const router = express.Router();
 
@@ -16,4 +18,9 @@ router.post("/request-password-reset" , authController.requestPasswordReset)
 router.post("/reset-password" , authController.resetPassword)
 //@ts-ignore
 router.get("/verifyToken/:token" , authController.verifyToken)
+//@ts-ignore
+router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+//@ts-ignore
+router.get("/google/callback", passport.authenticate("google", { session: false }),authController.passportAuth
+  );
 export default router

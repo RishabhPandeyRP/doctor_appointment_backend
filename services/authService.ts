@@ -59,6 +59,10 @@ const authService = {
                 throw new Error("Incorrect password")
             }
 
+            if(user.role !== "admin"){
+                return {success:false , data:"Not an admin"}
+            }
+
             const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, process.env.JWT_SECRET || 'jwt-secret', { expiresIn: '1d' })
 
             return { success:true ,data :{token, user} }

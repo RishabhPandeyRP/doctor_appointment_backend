@@ -17,7 +17,17 @@ const appointmentService = {
         try {
             const response = await appointmentModel.getAllApp()
 
-            return {success:true , data:response}
+            const updatedResponse = response.map((slot) => {
+                let dateStr = String(slot.appointment_date)
+                const date = new Date(dateStr)
+                let fornmatted = new Date(date.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }))
+                // console.log(fornmatted.toISOString())
+                let dateString = `${fornmatted.getFullYear()}-${String(fornmatted.getMonth() + 1).padStart(2, '0')}-${String(fornmatted.getDate()).padStart(2, '0')}T00:00:00.000Z`
+
+                return { ...slot, newdate: dateString }; // Replace UTC date with full IST Date object
+            });
+
+            return {success:true , data:updatedResponse}
         } catch (error:any) {
             console.log("error: app service > get all app" , error.message)
             return {success:false , data:error.message}

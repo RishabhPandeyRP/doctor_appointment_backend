@@ -70,7 +70,7 @@ const doctorModel = {
             }
 
 
-            query += `order by created_at desc limit $${queryParams.length + 1} offset $${queryParams.length + 2} `
+            query += `order by rating desc limit $${queryParams.length + 1} offset $${queryParams.length + 2} `
             queryParams.push(limit, offset)
 
             const { rows } = await db.query(query, queryParams)
