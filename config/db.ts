@@ -5,6 +5,7 @@ const {Pool} = pkg
 
 const pool = new Pool({
     connectionString: process.env.dbConnectionUrl,
+    ssl: { rejectUnauthorized: false },
 })
 
 pool.query("select now()" , (err , res)=>{
