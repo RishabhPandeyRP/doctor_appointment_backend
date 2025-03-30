@@ -2,15 +2,16 @@ import dotenv from "dotenv";
 dotenv.config();
 import pkg from "pg"
 const {Pool} = pkg
+const dbUrl = process.env.dbConnectionUrl
 
 const pool = new Pool({
-    connectionString: process.env.dbConnectionUrl,
+    connectionString: dbUrl,
     ssl: { rejectUnauthorized: false },
 })
 
 pool.query("select now()" , (err , res)=>{
     if(err){
-        console.log(process.env.dbConnectionURL)
+        console.log(dbUrl)
         console.error("db connect err " , err)
     }
     else{
