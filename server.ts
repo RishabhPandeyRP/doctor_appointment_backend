@@ -9,18 +9,22 @@ import slotRoutes from "./routes/slotRoutes.js"
 import appointmentRoutes from "./routes/appointmentRoutes.js"
 import imageUploadRoutes from "./routes/imageUploadRoute.js"
 import mailRoutes from "./routes/mailRoute.js"
+import healthRoutes from "./routes/healthRoutes.js"
 
 dotenv.config();
 const PORT = process.env.PORT || 5000
 const app = express()
 app.use(express.json())
+
 app.use(cors({
     origin:process.env.FrontendURLS?.split(','),
     credentials:true
 }))
+
 app.use(helmet())
 app.use(morgan('dev'))
 
+app.use("/",healthRoutes)
 app.use("/auth" , authRoutes)
 app.use("/doctors" , docRoutes)
 app.use("/slots" , slotRoutes)

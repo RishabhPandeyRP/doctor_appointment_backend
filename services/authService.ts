@@ -85,7 +85,7 @@ const authService = {
 
             const resetdata = await userModel.updateResetToken(email , token , expiryTime)
 
-            const resetLink = `${process.env.FrontendURLS?.split(",")[1]}/resetPass/${token}`;
+            const resetLink = `${process.env.Frontend_Base_URL}/resetPass/${token}`;
 
             return {success:true , data :resetdata , resetLink}
 
