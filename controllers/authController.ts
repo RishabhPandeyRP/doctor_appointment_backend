@@ -148,7 +148,7 @@ const authController = {
                 expiresIn: "1d",
               });
           
-              res.redirect(`http://localhost:3000/auth/success?token=${token}`);
+              res.redirect(`${process.env.Frontend_Base_URL}/auth/success?token=${token}`);
         } catch (error) {
             console.error("Google OAuth Error:", error);
         res.status(500).json({ message: "Internal server error" });
