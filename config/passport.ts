@@ -17,7 +17,6 @@ passport.use(
             try {
                 const { id, displayName, emails } = profile;
                 const email = emails?.[0]?.value;
-                //   const profilePic = photos?.[0]?.value;
                 const encryptedPass = await bcrypt.hash(id, 10)
 
                 if (!email) {
@@ -31,13 +30,13 @@ passport.use(
 
                 let user;
                 if (userCheck.rows.length > 0) {
-                    user = userCheck.rows[0]; // Existing user
-                } else {
-                    // New user, insert into database
+                    user = userCheck.rows[0]; 
+                }
+                else {
                     const newUser = await db.query(
                         `INSERT INTO users (email, password, name, role) 
              VALUES ($1, $2, $3, $4) RETURNING *`,
-                        [email, encryptedPass, displayName, "patient"] // Default role: patient
+                        [email, encryptedPass, displayName, "patient"] 
                     );
                     user = newUser.rows[0];
                 }

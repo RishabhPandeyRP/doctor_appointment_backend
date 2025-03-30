@@ -16,16 +16,14 @@ interface UserData {
 
 const authController = {
 
-    checkValidMail: (mail: string) => {
-
-    },
+    
 
     register: async (req: Request, res: Response) => {
         try {
             const { name, email, password, role } = req.body
             const domain = email.split("@")[1].split(".")[0]
 
-            if (domain !== "gmail" || domain !== "tothenew"){
+            if (domain != "gmail" && domain != "tothenew"){
                 return res.status(500).json({message : "Only gmail and tothenew domains are applicable"})
             }
             
@@ -80,7 +78,6 @@ const authController = {
                 let transporter = await nodemailer.createTransport({
                     host: 'smtp.ethereal.email',
                     port: 587,
-                    // service: 'Gmail',
                     auth: {
                         user: process.env.NODEMAIL_EMAIL,
                         pass: process.env.NODEMAIL_PASS
@@ -146,13 +143,11 @@ const authController = {
                 return res.status(401).json({ message: "Google authentication failed" });
               }
           
-              // Generate JWT token
               const user = req.user as any;
               const token = jwt.sign({ id: user.id, email: user.email, role: user.role, name:user.name }, process.env.JWT_SECRET || "jwt-secret", {
                 expiresIn: "1d",
               });
           
-              // Redirect user to frontend with token (modify URL accordingly)
               res.redirect(`http://localhost:3000/auth/success?token=${token}`);
         } catch (error) {
             console.error("Google OAuth Error:", error);

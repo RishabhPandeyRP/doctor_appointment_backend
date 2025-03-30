@@ -13,7 +13,6 @@ import mailRoutes from "./routes/mailRoute.js"
 dotenv.config();
 const PORT = process.env.PORT || 5000
 const app = express()
-// console.log(process.env.FrontendURL)
 app.use(express.json())
 app.use(cors({
     origin:process.env.FrontendURLS?.split(','),

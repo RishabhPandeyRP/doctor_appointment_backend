@@ -51,12 +51,10 @@ const appointmentModel = {
                         a.patient_details,
                         a.created_at AS appointment_created_at,
                         
-                        -- Patient details
                         p.id AS patient_id,
                         p.name AS patient_name,
                         p.email AS patient_email,
                         
-                        -- Doctor details
                         d.id AS doctor_id,
                         u.name AS doctor_name,
                         u.email AS doctor_email,
@@ -67,17 +65,16 @@ const appointmentModel = {
                         d.location,
                         d.gender,
 
-                        -- Slot details
                         ds.id AS slot_id,
                         ds.date AS slot_date,
                         ds.start_time AS slot_start_time,
                         ds.end_time AS slot_end_time
 
                     FROM appointments a
-                    JOIN users p ON a.patient_id = p.id  -- Join with patients
-                    JOIN doctors d ON a.doctor_id = d.id  -- Join with doctors
-                    JOIN users u ON d.user_id = u.id  -- Join with users for doctor names
-                    JOIN doctor_slots ds ON a.doctor_slot_id = ds.id  -- Join with doctor slots
+                    JOIN users p ON a.patient_id = p.id  
+                    JOIN doctors d ON a.doctor_id = d.id  
+                    JOIN users u ON d.user_id = u.id  
+                    JOIN doctor_slots ds ON a.doctor_slot_id = ds.id  
 
                     ORDER BY a.appointment_date DESC, a.start_time ASC;
 `)

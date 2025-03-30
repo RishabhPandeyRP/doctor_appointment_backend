@@ -4,13 +4,6 @@ import doctorService from "../services/doctorService.js"
 const doctorController = {
     createDoc: async(req:Request , res:Response)=>{
         try {
-            const {email} = req.body
-            const domain = email.split("@")[1].split(".")[0]
-            
-            if (domain !== "gmail" || domain !== "tothenew"){
-                return res.status(500).json({message : "Only gmail and tothenew domains are applicable"})
-            }
-            
             const response = await doctorService.createDoc(req.body)
             
             if(response.success){
@@ -54,7 +47,7 @@ const doctorController = {
     updateDoc: async(req:Request , res:Response)=>{
         try {
             const response = await doctorService.updateDoc(Number(req.params.id) , req.body)
-            // if (!response) return res.status(404).json({ message: "Doctor not found" });
+            
             if(response.success){
                 return res.status(200).json({updated_docname:response.data})
             }
@@ -71,10 +64,6 @@ const doctorController = {
 
             const parsedPage = parseInt(page as string)
             const parsedLimit = parseInt(limit as string)
-
-            // if(!Array.isArray(rating) || !Array.isArray(experience) || !Array.isArray(gender)){
-            //     return res.status(500).json({message : "wrong inputs, not arrays"})
-            // }
 
             const parsedRating : string[] = Array.isArray(rating) ? rating.map(item => item as string).filter(item => item.trim() !== "")  : []
 

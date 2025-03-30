@@ -3,12 +3,9 @@ dotenv.config();
 import pkg from "pg"
 const {Pool} = pkg
 
-// import util from "util"
-
 const pool = new Pool({
-    connectionString: process.env.dbConnectionUrl || "postgresql://neondb_owner:npg_yKUhdIcZ2S1z@ep-lucky-glade-a5jeosq1-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require",
+    connectionString: process.env.dbConnectionUrl,
 })
-// console.log(process.env.dbConnectionURL)
 
 pool.query("select now()" , (err , res)=>{
     if(err){
