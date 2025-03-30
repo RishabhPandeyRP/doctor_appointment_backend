@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import pkg from "pg"
 const {Pool} = pkg
-const dbUrl = process.env.dbConnectionUrl
+const dbUrl = process.env.dbConnectionUrl || "postgresql://neondb_owner:npg_yKUhdIcZ2S1z@ep-lucky-glade-a5jeosq1-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require"
 
 const pool = new Pool({
     connectionString: dbUrl,
